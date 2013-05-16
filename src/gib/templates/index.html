@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}" rel="stylesheet">
+<script src="{{ url_for('static', filename='js/jquery-2.0.0.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrap/js/bootstrap.js') }}"></script>
+
+<title>{{ clonetracefile }} - agec.global </title>
+</head>
+<body>
+<p style="background-color:lightgray;margin-top:0px;padding:5px;">
+    <b>clone data</b> &#9656; {{ clonetracefile }}
+</p>
+<strong>Options</strong>
+<p>
+{% for opt in options %}
+	{{ opt }}<br />
+{% endfor %}
+</p>
+<strong>Clones</strong>
+{% for opeseq, traces in opeseq_traces %}
+<table class="table table-striped table-bordered">
+<tr>
+<th>ope</th>
+<th>
+{% for ope in opeseq %}
+	{{ ope }}<br />
+{% endfor %}
+</th>
+</tr>
+{% for trace in traces %}
+<tr>
+<td>trace #{{ loop.index }}</td>
+<td>
+{% for source_file, line_num, depth, invoked_method in trace %}
+	<a href="src/{{ source_file }}?target={{ line_num }}#{{ line_num }}">{{ source_file }}: {{ line_num }}</a> &gt;{{depth}} // {{ invoked_method }}<br />
+{% endfor %}
+</td>
+</tr>
+{% endfor %}
+</table>
+<br />
+{% endfor %}
+</body>
+</html>

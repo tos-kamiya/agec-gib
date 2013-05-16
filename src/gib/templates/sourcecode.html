@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<meta charset=utf-8>
+<link href="{{ url_for('static', filename='css/github-mod.css') }}" rel="stylesheet" type="text/css">
+<body>
+<p style="background-color:lightgray;margin-top:0px;padding:5px;">
+    <b>source file</b> &#9656; {{ filename }}
+</p>
+{% for line in linedata %}
+{% if loop.index == target %}
+<pre id="{{ loop.index }}" style="background-color:#E0ECF8;">
+{% else %}
+<pre id="{{ loop.index }}">
+{% endif %}
+{{ loop.index }} <code data-language="c">{{ line }}</code></pre>
+{% endfor %}
+<script src="{{ url_for('static', filename='js/rainbow-custom.min.js') }}"></script>
+</body>
